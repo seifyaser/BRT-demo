@@ -61,6 +61,7 @@ class _HomeState extends State<Home> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(top: 180),
               child: FormBuilder(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                 key: _formKey,
                 child: Column(
                   children: [
