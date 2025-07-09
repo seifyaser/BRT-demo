@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children:  [
                           Text(
                             'My Trips',
                             style: TextStyle(
@@ -150,11 +150,16 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            'Show All',
-                            style: TextStyle(
-                              color: Color(0xFF427292),
-                              fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context,'/reserve-screen');
+                            },
+                            child: Text(
+                              'Show All',
+                              style: TextStyle(
+                                color: Color(0xFF427292),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
