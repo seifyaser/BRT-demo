@@ -17,7 +17,7 @@ class AppRoutes {
     loginScreen: (context) => const LoginScreen(),
     RegisterScreen: (context) => const SignupScreen(),
    // SuccessScreen: (context) => const SuccessPage(),
-   homeDashboard: (context) => const Home(),
+   homeDashboard: (context) =>  Home(),
 
   };
 }

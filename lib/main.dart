@@ -1,4 +1,5 @@
 
+import 'package:demo/presentation/Homepage/home.dart';
 import 'package:demo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+  //   home:  Home(),
         routes: AppRoutes.routes,
         initialRoute: AppRoutes.initial,
     );

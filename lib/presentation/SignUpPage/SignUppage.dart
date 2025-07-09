@@ -1,6 +1,6 @@
 import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
 import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
-import 'package:demo/presentation/SignUpPage/widgets/DateBirthField.dart';
+import 'package:demo/presentation/SignUpPage/widgets/DatebirthField.dart';
 import 'package:demo/presentation/SignUpPage/widgets/genderDropdown.dart';
 import 'package:demo/presentation/SignUpPage/widgets/welcomeHeadline.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
@@ -153,7 +153,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               const SizedBox(height: 16),
 
                               // Date of Birth Picker
-                              const DateOfBirthField(),
+                              const DateField(
+                                name: 'date_of_birth',
+                               errorText: 'please enter your date of birth',),
                               const SizedBox(height: 32),
 
                               // Sign Up Button

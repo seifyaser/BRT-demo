@@ -26,5 +26,7 @@ InputDecoration FormBuilderDecoration(String label, String hint,[Widget? SuffixI
       borderRadius: BorderRadius.circular(8),
     ),
     errorStyle: const TextStyle(color: Colors.redAccent),
+    
   );
+  
 }
