@@ -21,6 +21,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool obscurePassword = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: IntrinsicHeight(
                         child: FormBuilder(
                           key: _formKey,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -155,18 +155,37 @@ class _SignupScreenState extends State<SignupScreen> {
                               // Date of Birth Picker
                               const DateField(
                                 name: 'date_of_birth',
-                               errorText: 'please enter your date of birth',),
+                              ),
                               const SizedBox(height: 32),
 
                               // Sign Up Button
                               CustomButton(
                                 text: 'Sign Up',
-                                onPressed: () {
-                                  // if (_formKey.currentState!
-                                  //     .saveAndValidate()) {
-                                  //   print(_formKey.currentState!.value);
-                                  // }
-                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SuccessPage(centerText: '🎊 Your account has been successfully created!', DescriptionText: 'Welcome! Your account has been successfully registered, and you can now browse the latest offers and products.',)));
+                                isLoading: isLoading,
+                                onPressed: () async {
+                                  if (_formKey.currentState!
+                                      .saveAndValidate()) {
+                                    setState(() => isLoading = true);
+
+                                    await Future.delayed(
+                                      const Duration(seconds: 2),
+                                    );
+
+                                    setState(() => isLoading = false);
+
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => const SuccessPage(
+                                              centerText:
+                                                  '🎊 Your account has been successfully created!',
+                                              DescriptionText:
+                                                  'Welcome! Your account has been successfully registered, and you can now browse the latest offers and products.',
+                                            ),
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                               const SizedBox(height: 16),

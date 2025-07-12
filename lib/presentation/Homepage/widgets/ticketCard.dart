@@ -1,3 +1,4 @@
+import 'package:demo/presentation/TicketCardScreen/TicketCardScreen.dart';
 import 'package:flutter/material.dart';
 
 class TicketCard extends StatelessWidget {
@@ -99,7 +100,9 @@ class TicketCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TicketScreen()));
+                  },
                   child: const Text(
                     'View Details',
                     style: TextStyle(color: Color(0xFF009DAD), fontWeight: FontWeight.bold),

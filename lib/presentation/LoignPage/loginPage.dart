@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool rememberMe = false;
+  bool isLoading = false;
   bool obscurePassword = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -40,6 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
                           minHeight: constraints.maxHeight,
@@ -101,22 +104,43 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               CustomButton(
                                 text: 'Log in',
-                                onPressed: () {
-                                  // if (_formKey.currentState!.validate()) {
-                                  //   // Go to home
-                                  // }
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SuccessPage(centerText: '🎉 Login successful!', DescriptionText: 'Welcome! Enjoy a seamless experience and special offers.',)));
+                                isLoading: isLoading,
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() => isLoading = true);
+
+                                    await Future.delayed(
+                                      const Duration(seconds:2 ),
+                                    );
+
+                                    setState(() => isLoading = false);
+
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => const SuccessPage(
+                                              centerText:
+                                                  '🎉 Login successful!',
+                                              DescriptionText:
+                                                  'Welcome! Enjoy a seamless experience and special offers.',
+                                            ),
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
 
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 18),
 
                               Asksignbutton(
                                 placeholder1: 'don\'t have an account? ',
                                 placeholder2: 'Sign up now',
                                 onPressed: () {
-                                 Navigator.
-                                 pushReplacementNamed(context, '/Signup-screen');
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/Signup-screen',
+                                  );
                                 },
                               ),
 
