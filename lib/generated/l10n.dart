@@ -495,10 +495,10 @@ class S {
     );
   }
 
-  /// `Where Are You Going Today?`
+  /// `Where Are You\nGoing Today?`
   String get whereAreYouGoingToday {
     return Intl.message(
-      'Where Are You Going Today?',
+      'Where Are You\nGoing Today?',
       name: 'whereAreYouGoingToday',
       desc: '',
       args: [],

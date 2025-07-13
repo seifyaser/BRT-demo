@@ -167,7 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "toLabel": MessageLookupByLibrary.simpleMessage("To"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back!"),
     "whereAreYouGoingToday": MessageLookupByLibrary.simpleMessage(
-      "Where Are You Going Today?",
+      "Where Are You\nGoing Today?",
     ),
   };
 }

@@ -52,7 +52,7 @@
     "SuccessAcountSignInDescriptionText" : "Welcome! Enjoy a seamless experience and special offers.",
 
     "morningDear": "Morning Dear,",
-    "whereAreYouGoingToday": "Where Are You Going Today?",
+    "whereAreYouGoingToday": "Where Are You\nGoing Today?",
     "availableLines": "Available lines",
     "SelectLocationerror" : "select a location",
     "pleaseeneterTicketCount": "Please enter ticket count",
