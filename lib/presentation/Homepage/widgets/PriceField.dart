@@ -1,4 +1,5 @@
- import 'package:flutter/material.dart';
+ import 'package:demo/generated/l10n.dart';
+import 'package:flutter/material.dart';
 
 class PriceField extends StatelessWidget {
    Widget build(BuildContext context) {
@@ -6,7 +7,7 @@ class PriceField extends StatelessWidget {
       readOnly: true, // Price is expected, not input
       controller: TextEditingController(text: '150 EGP'),
       decoration: InputDecoration(
-        labelText: 'Expected Price',
+        labelText: S.of(context).expectedPrice,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),

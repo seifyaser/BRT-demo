@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
 import 'package:demo/widgets/AskSignbutton.dart';
 import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
@@ -59,19 +60,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               CustomTextfield(
                                 controller: emailController,
-                                labelText: 'Email address',
-                                hintText: 'Enter your email address',
+                                labelText: S.of(context).labelEmailText,
+                                hintText: S.of(context).hintEmailText,
                                 keyboardType: TextInputType.emailAddress,
-                                validator: Validators.validateEmail,
+                               validator: (value) => Validators.validateEmail(context, value),
                               ),
                               const SizedBox(height: 16),
 
                               CustomTextfield(
                                 controller: passwordController,
-                                labelText: 'Password',
-                                hintText: 'Enter your password',
+                                labelText: S.of(context).labelPasswordText,
+                                hintText: S.of(context).hintPasswordText,
                                 obscureText: obscurePassword,
-                                validator: Validators.validatePassword,
+                               validator: (value) => Validators.validatePassword(context, value),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     obscurePassword
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(height: 16),
 
                               CustomButton(
-                                text: 'Log in',
+                                text: S.of(context).loginButton,
                                 isLoading: isLoading,
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
@@ -119,11 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder:
-                                            (context) => const SuccessPage(
+                                            (context) =>  SuccessPage(
                                               centerText:
-                                                  '🎉 Login successful!',
+                                                  S.of(context).SuccessAcountSignInCenterText,
                                               DescriptionText:
-                                                  'Welcome! Enjoy a seamless experience and special offers.',
+                                                  S.of(context).SuccessAcountSignInDescriptionText,
                                             ),
                                       ),
                                     );
@@ -134,8 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(height: 18),
 
                               Asksignbutton(
-                                placeholder1: 'don\'t have an account? ',
-                                placeholder2: 'Sign up now',
+                                placeholder1: S.of(context).placeholder1,
+                                placeholder2: S.of(context).placeholder2,
                                 onPressed: () {
                                   Navigator.pushReplacementNamed(
                                     context,

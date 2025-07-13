@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeText extends StatelessWidget {
@@ -7,9 +8,9 @@ class WelcomeText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children:  [
         Text(
-          'Welcome back!',
+          S.of(context).welcomeBack,
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -18,7 +19,7 @@ class WelcomeText extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Text(
-          'Enter your email and password\nto enjoy the experience',
+          S.of(context).enjoySmartPowerfulExperience,
           style: TextStyle(color: Color(0xffFFFFFF), fontSize: 16),
         ),
       ],

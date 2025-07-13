@@ -1,12 +1,13 @@
-   import 'package:flutter/material.dart';
+   import 'package:demo/generated/l10n.dart';
+import 'package:flutter/material.dart';
 
 class WelcomeHeadline extends StatelessWidget {
 Widget build(BuildContext context) {
   return   Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Let's get started! Create your account easily",
+                                   Text(
+                                    S.of(context).letsGetStartedCreateAccount,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 28,
@@ -14,8 +15,8 @@ Widget build(BuildContext context) {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-                                  const Text(
-                                    'Enter your basic information to join us',
+                                   Text(
+                                    S.of(context).enterYourBasicInformationToJoinUs,
                                     style: TextStyle(color: Color(0xffFFFFFF), fontSize: 14, fontWeight: FontWeight.w500),
                                   ),
                                 ],

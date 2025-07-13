@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -29,11 +30,11 @@ class LocationSelectorRow extends StatelessWidget {
             name: 'from_location',
             icon: SizedBox.shrink(), // to hide the default dropdown icon
             initialValue: selectedFrom,
-            decoration: _inputDecoration(label: 'From'),
+            decoration: _inputDecoration(label: S.of(context).fromLabel),
             items: _buildLocationItems(),
             onChanged: onFromChanged,
             validator: FormBuilderValidators.required(
-              errorText: 'select a location',
+              errorText: S.of(context).SelectLocationerror,
             ),
           ),
         ),
@@ -56,11 +57,11 @@ class LocationSelectorRow extends StatelessWidget {
 
             name: 'to_location',
             initialValue: selectedTo,
-            decoration: _inputDecoration(label: 'To'),
+            decoration: _inputDecoration(label: S.of(context).toLabel),
             items: _buildLocationItems(),
             onChanged: onToChanged,
             validator: FormBuilderValidators.required(
-              errorText: 'select a location',
+              errorText: S.of(context).SelectLocationerror,
             ),
           ),
         ),

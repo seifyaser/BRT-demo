@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class RememberMeAndForgotRow extends StatelessWidget {
@@ -22,15 +23,15 @@ class RememberMeAndForgotRow extends StatelessWidget {
           checkColor: Colors.white,
           onChanged: onChanged,
         ),
-        const Text(
-          'Remember me',
+         Text(
+          S.of(context).rememberMe,
           style: TextStyle(color: Colors.white),
         ),
         const Spacer(),
         TextButton(
           onPressed: onForgotPassword,
-          child: const Text(
-            'Forgot your password?',
+          child:  Text(
+           S.of(context).forgetPassword,
             style: TextStyle(color: Colors.white),
           ),
         ),

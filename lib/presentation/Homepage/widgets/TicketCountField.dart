@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -15,12 +16,12 @@ class TicketCountField extends StatelessWidget {
       initialValue: value?.toString(),
       keyboardType: TextInputType.number,
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(errorText: 'please enter ticket count'),
+        FormBuilderValidators.required(errorText: S.of(context).pleaseeneterTicketCount),
       ]),
       onChanged: onChanged,
       decoration: InputDecoration(
-        labelText: 'Ticket Count',
-        hintText: 'example : 1',
+        labelText: S.of(context).ticketCount,
+        hintText: S.of(context).ticketCountExample,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         prefixIcon: Icon(Icons.confirmation_number_outlined, color: Colors.grey),
         focusedBorder: OutlineInputBorder(

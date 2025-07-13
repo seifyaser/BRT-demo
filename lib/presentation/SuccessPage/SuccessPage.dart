@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/widgets/BackgroundImages.dart';
 import 'package:demo/widgets/CustomButton.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class SuccessPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 50.0),
                   // Go to the homepage button
-                 CustomButton(text: 'Go to the homepage', onPressed: () {
+                 CustomButton(text: S.of(context).goToHomepage, onPressed: () {
                  Navigator.pushNamedAndRemoveUntil(context, '/home-dashboard', (route) => false);
 
                  }),

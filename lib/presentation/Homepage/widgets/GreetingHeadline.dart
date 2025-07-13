@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class Greetingheadline extends StatelessWidget {
@@ -7,11 +8,11 @@ class Greetingheadline extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Morning Dear,', style: TextStyle(color: Colors.white, fontSize: 16)),
+                      children:  [
+                        Text(S.of(context).morningDear, style: TextStyle(color: Colors.white, fontSize: 16)),
                         SizedBox(height: 5),
                         Text(
-                          'Where Are You\nGoing Today?',
+                          S.of(context).whereAreYouGoingToday,
                           style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         

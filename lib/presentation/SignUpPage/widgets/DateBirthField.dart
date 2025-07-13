@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -13,7 +14,7 @@ class DateField extends StatelessWidget {
   Widget build(BuildContext context) {
     return  FormBuilderField<DateTime>(
     name: 'date_of_birth',
-    validator: FormBuilderValidators.required(errorText: 'please select date'),
+    validator: FormBuilderValidators.required(errorText: S.of(context).pleaseSelectDate),
     builder: (FormFieldState<DateTime?> field) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +55,7 @@ class DateField extends StatelessWidget {
             child: InputDecorator(
               decoration: 
               InputDecoration(
-                labelText: 'Date of Birth',
+                labelText: S.of(context).datebirthlabel,
                 labelStyle: const TextStyle(color: Color(0xffffffff)),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 errorText: field.errorText,
@@ -70,7 +71,7 @@ class DateField extends StatelessWidget {
               child: Text(
                 field.value != null
                     ? DateFormat('dd/MM/yyyy').format(field.value!)
-                    : 'Select Date',
+                    : S.of(context).dateSelect,
                 style: const TextStyle(color: Color.fromARGB(221, 255, 251, 251), fontSize: 16),
               ),
               ),

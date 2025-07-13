@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/Homepage/widgets/FormReswerveDateDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -12,7 +13,7 @@ class DateReserveField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderField<DateTime>(
       name: 'reserve_date',
-      validator: FormBuilderValidators.required(errorText:'please select reserve date'),
+      validator: FormBuilderValidators.required(errorText:S.of(context).pleaseSelectDate),
       builder: (FormFieldState<DateTime?> field) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

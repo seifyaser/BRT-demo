@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class PaymentCardField extends StatelessWidget {
@@ -17,7 +18,7 @@ class PaymentCardField extends StatelessWidget {
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              'Fawry Method',
+              S.of(context).fawryMethod,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[700]),
             ),
           ),

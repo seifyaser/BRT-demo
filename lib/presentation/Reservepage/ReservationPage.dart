@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/Homepage/widgets/ticketCard.dart';
 import 'package:flutter/material.dart';
 
@@ -35,10 +36,10 @@ class ReservationPage extends StatelessWidget {
           Navigator.pop(context);
         },
       ),
-      const Expanded(
+       Expanded(
         child: Center(
           child: Text(
-            'Ticket Reservation',
+            S.of(context).TicketReservation,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,

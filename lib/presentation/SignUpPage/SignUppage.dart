@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
 import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
 import 'package:demo/presentation/SignUpPage/widgets/DatebirthField.dart';
@@ -64,10 +65,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                   Expanded(
                                     child: CustomFormBuilderField(
                                       name: 'first_name',
-                                      label: 'First name',
-                                      hint: 'Enter first name',
+                                      label: S.of(context).firstNamelabel,
+                                      hint: S.of(context).firstNamelabel,
                                       validator: FormBuilderValidators.required(
-                                        errorText: 'Required',
+                                        errorText: S.of(context).required,
                                       ),
                                     ),
                                   ),
@@ -75,10 +76,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                   Expanded(
                                     child: CustomFormBuilderField(
                                       name: 'last_name',
-                                      label: 'Last name',
-                                      hint: 'Enter last name',
+                                      label: S.of(context).lastNamelabel,
+                                      hint: S.of(context).lastNamelabel,
                                       validator: FormBuilderValidators.required(
-                                        errorText: 'Required',
+                                        errorText: S.of(context).required,
                                       ),
                                     ),
                                   ),
@@ -89,15 +90,15 @@ class _SignupScreenState extends State<SignupScreen> {
                               // Email
                               CustomFormBuilderField(
                                 name: 'email',
-                                label: 'Email',
-                                hint: 'Enter email',
+                                label: S.of(context).emailLabel,
+                                hint: S.of(context).emailHint,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(
-                                    errorText: 'Required',
+                                    errorText: S.of(context).required,
                                   ),
                                   FormBuilderValidators.email(
-                                    errorText: 'Invalid email',
+                                    errorText: S.of(context).invalidEmailError,
                                   ),
                                 ]),
                               ),
@@ -106,8 +107,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               // Password
                               CustomFormBuilderField(
                                 name: 'password',
-                                label: 'Password',
-                                hint: 'Enter password',
+                                label: S.of(context).passwordLabel,
+                                hint: S.of(context).passwordHint,
                                 obscureText: obscurePassword,
                                 suffixIcon: IconButton(
                                   icon: Icon(
@@ -124,11 +125,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(
-                                    errorText: 'Required',
+                                    errorText: S.of(context).required,
                                   ),
                                   FormBuilderValidators.minLength(
                                     6,
-                                    errorText: 'Minimum 6 characters',
+                                    errorText: S.of(context).passwordMinLengthError,
                                   ),
                                 ]),
                               ),
@@ -136,18 +137,18 @@ class _SignupScreenState extends State<SignupScreen> {
 
                               // Gender Dropdown
                               CustomDropdownField<String>(
-                                items: const [
+                                items:  [
                                   DropdownMenuItem(
                                     value: 'Male',
-                                    child: Text('Male'),
+                                    child: Text(S.of(context).male),
                                   ),
                                   DropdownMenuItem(
                                     value: 'Female',
-                                    child: Text('Female'),
+                                    child: Text(S.of(context).female),
                                   ),
                                 ],
                                 validator: FormBuilderValidators.required(
-                                  errorText: 'Please select a gender',
+                                  errorText: S.of(context).pleaseSelectYourGender,
                                 ),
                               ),
                               const SizedBox(height: 16),
@@ -160,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                               // Sign Up Button
                               CustomButton(
-                                text: 'Sign Up',
+                                text: S.of(context).SignUpButton,
                                 isLoading: isLoading,
                                 onPressed: () async {
                                   if (_formKey.currentState!
@@ -177,11 +178,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder:
-                                            (context) => const SuccessPage(
+                                            (context) =>  SuccessPage(
                                               centerText:
-                                                  '🎊 Your account has been successfully created!',
+                                                  S.of(context).SuccessAcountSignupCenterText,
                                               DescriptionText:
-                                                  'Welcome! Your account has been successfully registered, and you can now browse the latest offers and products.',
+                                                  S.of(context).SuccessAcountSignupDescriptionText,
                                             ),
                                       ),
                                     );
@@ -192,8 +193,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
                               // Already have account
                               Asksignbutton(
-                                placeholder1: 'Already have an account? ',
-                                placeholder2: 'Sign in',
+                                placeholder1: S.of(context).placeholder3,
+                                placeholder2: S.of(context).placeholder4,
                                 onPressed: () {
                                   Navigator.pushReplacementNamed(
                                     context,

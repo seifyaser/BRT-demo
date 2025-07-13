@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/Homepage/widgets/AvailableLinesHeader.dart';
 import 'package:demo/presentation/Homepage/widgets/DateReserveField.dart';
 import 'package:demo/presentation/Homepage/widgets/GreetingHeadline.dart';
@@ -110,8 +111,8 @@ class _HomeState extends State<Home> {
                                     vertical: 15,
                                   ),
                                 ),
-                                child: const Text(
-                                  'Find Transportation',
+                                child:  Text(
+                                  S.of(context).findTransportationButton,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -130,8 +131,8 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'My Trips',
+                         Text(
+                          S.of(context).MyTrips,
                           style: TextStyle(
                             color: Color(0xFF427292),
                             fontSize: 20,
@@ -142,8 +143,8 @@ class _HomeState extends State<Home> {
                           onTap: () {
                             Navigator.pushNamed(context, '/reserve-screen');
                           },
-                          child: const Text(
-                            'Show All',
+                          child:  Text(
+                            S.of(context).showAll,
                             style: TextStyle(
                               color: Color(0xFF427292),
                               fontWeight: FontWeight.bold,
@@ -163,16 +164,16 @@ class _HomeState extends State<Home> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: const Color(0xFF3363FF),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'حجز التذكرة'),
-          BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'المزيد'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 0,
+      //   selectedItemColor: const Color(0xFF3363FF),
+      //   unselectedItemColor: Colors.grey,
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'حجز التذكرة'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'المزيد'),
+      //   ],
+      // ),
     );
   }
 }

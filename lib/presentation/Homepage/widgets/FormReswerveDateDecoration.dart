@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +16,7 @@ class FormReswerveDateDecoration extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-        labelText: 'Reserve Date',
+        labelText: S.of(context).reserveDate,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         prefixIcon: const Icon(Icons.calendar_today, color: Colors.grey),
         errorText: errorText,

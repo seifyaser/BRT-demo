@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -19,7 +20,7 @@ class CustomDropdownField<T> extends StatelessWidget {
       name: 'gender',
       icon: const SizedBox.shrink(), 
       decoration: InputDecoration(
-        labelText: 'Gender',
+        labelText: S.of(context).gender,
         labelStyle: const TextStyle(color: Colors.white),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         enabledBorder: OutlineInputBorder(
@@ -35,8 +36,8 @@ class CustomDropdownField<T> extends StatelessWidget {
       dropdownColor: const Color(0xff1E1E1E),
       validator: validator,
       onChanged: onChanged,
-      hint: const Text(
-        'Select Gender',
+      hint:  Text(
+        S.of(context).genderSelect,
                 style: const TextStyle(color: Color.fromARGB(221, 255, 251, 251), fontSize: 16),
       ),
 

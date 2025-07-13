@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/TicketCardScreen/TicketCardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +47,11 @@ class TicketCard extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children:  [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Departure', style: TextStyle(color: Color(0xff878E8E), fontSize: 16)),
+                    Text(S.of(context).departure, style: TextStyle(color: Color(0xff878E8E), fontSize: 16)),
                     SizedBox(height: 4),
                     Text('16, Jan 2023', style: TextStyle(fontSize: 16)),
                   ],
@@ -58,7 +59,7 @@ class TicketCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Distance', style: TextStyle(color: Color(0xff878E8E), fontSize: 16)),
+                    Text(S.of(context).Distance, style: TextStyle(color: Color(0xff878E8E), fontSize: 16)),
                     SizedBox(height: 4),
                     Text('35km', style: TextStyle(fontSize: 16)),
                   ],
@@ -87,24 +88,27 @@ class TicketCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                  text: const TextSpan(
-                    text: 'EGP 150',
-                    style: TextStyle(color: Color(0xff427292), fontWeight: FontWeight.bold, fontSize: 18),
-                    children: [
-                      TextSpan(
-                        text: '  Ticket Price',
-                        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 15),
-                      ),
-                    ],
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'EGP 150 ',
+                      style: TextStyle(color: Color(0xff427292), fontWeight: FontWeight.bold, fontSize: 18),
+                      children: [
+                        TextSpan(
+                          text: S.of(context).TicketPrice,
+                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 17),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const TicketScreen()));
                   },
-                  child: const Text(
-                    'View Details',
+                  child:  Text(
+                    S.of(context).ViewDetails,
                     style: TextStyle(color: Color(0xFF009DAD), fontWeight: FontWeight.bold),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/TicketCardScreen/Widgets/TicketCardDeatils.dart';
 import 'package:flutter/material.dart';
 
@@ -29,28 +30,27 @@ class TicketScreen extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 40.0,
-                ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-              ),
+  padding: const EdgeInsets.only(top: 25, left: 10, right: 15, bottom: 135),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      IconButton(
+        icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+     
+      const SizedBox(width: 48)
+    ],
+  ),
+),
             ),
           ),
 
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 130),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TicketCardDetails(),
-            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 125, left: 20, right: 20),
+            child: TicketCardDetails(),
           ),
         ],
       ),

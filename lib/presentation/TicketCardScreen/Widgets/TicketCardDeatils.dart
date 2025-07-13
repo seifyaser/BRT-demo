@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/TicketCardScreen/Widgets/TripDetailsItem.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -38,7 +39,7 @@ class TicketCardDetails extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     Text(
                       "BRT",
                       style: TextStyle(
@@ -48,7 +49,7 @@ class TicketCardDetails extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Ticket #2231",
+                      S.of(context).TicketNo + " #2231",
                       style: TextStyle(
                         color: Color(0xff0E4E80),
                         fontSize: 16,
@@ -89,11 +90,11 @@ class TicketCardDetails extends StatelessWidget {
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    TripDetailItem(title: "Departure", value: "16, Jan 2023"),
-                    TripDetailItem(title: "Distance", value: "35km"),
-                    TripDetailItem(title: "No.Ticket", value: "5"),
-                    TripDetailItem(title: "Price", value: "150 LE"),
+                  children:  [
+                    TripDetailItem(title: S.of(context).departure, value: "16, Jan 2023"),
+                    TripDetailItem(title: S.of(context).Distance, value: "35km"),
+                    TripDetailItem(title: S.of(context).NoOfTickets, value: "5"),
+                    TripDetailItem(title: S.of(context).price, value: "150 LE"),
                   ],
                 ),
               ],
