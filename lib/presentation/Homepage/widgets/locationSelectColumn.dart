@@ -10,7 +10,6 @@ class LocationSelectorColumn extends StatelessWidget {
   final StationModel? selectedTo;
   final ValueChanged<StationModel?> onFromChanged;
   final ValueChanged<StationModel?> onToChanged;
-  final String? hint;
 
   const LocationSelectorColumn({
     super.key,
@@ -19,7 +18,6 @@ class LocationSelectorColumn extends StatelessWidget {
     required this.selectedTo,
     required this.onFromChanged,
     required this.onToChanged,
-    this.hint,
   });
 
   @override
@@ -30,14 +28,21 @@ class LocationSelectorColumn extends StatelessWidget {
           name: 'from_location',
           icon: const SizedBox.shrink(),
           initialValue: selectedFrom,
-          decoration: _inputDecoration(label: S.of(context).fromLabel),
+          decoration: _inputDecoration(),
           items: _buildLocationItems(),
+            hint: Center(
+            child: Text(
+              'From',
+              style: const TextStyle(color: Color(0xffa4a4a4),fontSize: 20),
+            ),
+          ),
           onChanged: onFromChanged,
           validator: FormBuilderValidators.required(
             errorText: S.of(context).SelectLocationerror,
           ),
         ),
         const SizedBox(height: 10),
+
         Container(
           padding: const EdgeInsets.all(8),
           decoration: const BoxDecoration(
@@ -46,13 +51,20 @@ class LocationSelectorColumn extends StatelessWidget {
           ),
           child: Image.asset('assets/Swap.png'),
         ),
+
         const SizedBox(height: 10),
         FormBuilderDropdown<StationModel>(
           name: 'to_location',
           icon: const SizedBox.shrink(),
           initialValue: selectedTo,
-          decoration: _inputDecoration(label: S.of(context).toLabel),
+          decoration: _inputDecoration(),
           items: _buildLocationItems(),
+          hint: Center(
+            child: Text(
+              'To',
+              style: const TextStyle(color: Color(0xffa4a4a4),fontSize: 20),
+            ),
+          ),
           onChanged: onToChanged,
           validator: FormBuilderValidators.required(
             errorText: S.of(context).SelectLocationerror,
@@ -62,15 +74,18 @@ class LocationSelectorColumn extends StatelessWidget {
     );
   }
 
-  InputDecoration _inputDecoration({required String label}) {
+  InputDecoration _inputDecoration() {
     return InputDecoration(
-      labelText: label,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+    
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
+        enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(18),
+      borderSide: const BorderSide(color:  Color.fromARGB(255, 181, 181, 181)),
+    ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Color(0xFF3363FF)),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        borderRadius: BorderRadius.circular(18),
+        ),
+      contentPadding: const EdgeInsets.symmetric( vertical: 20),
     );
   }
 

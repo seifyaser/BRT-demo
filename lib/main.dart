@@ -1,5 +1,6 @@
 
 import 'package:demo/generated/l10n.dart';
+import 'package:demo/presentation/Homepage/home.dart';
 import 'package:demo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -26,10 +27,11 @@ class MyApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
    
-  //   home:  Home(),
-        routes: AppRoutes.routes,
-        initialRoute: AppRoutes.initial,
-    );
+    home:  Home(),
+
+        //   routes: AppRoutes.routes,
+        // initialRoute: AppRoutes.initial, 
+         );
   }
 }
 
