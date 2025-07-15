@@ -51,11 +51,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "arrival": MessageLookupByLibrary.simpleMessage("Arrival"),
     "availableLines": MessageLookupByLibrary.simpleMessage("Available lines"),
     "cairo": MessageLookupByLibrary.simpleMessage("Cairo"),
+    "confirmPasswordLabel": MessageLookupByLibrary.simpleMessage(
+      "Confirm Password",
+    ),
+    "confirmPasswordhint": MessageLookupByLibrary.simpleMessage(
+      "Enter Confirm Password",
+    ),
     "dateSelect": MessageLookupByLibrary.simpleMessage("Select Date"),
     "datebirthlabel": MessageLookupByLibrary.simpleMessage("Date of birth"),
     "departure": MessageLookupByLibrary.simpleMessage("Departure"),
-    "emailHint": MessageLookupByLibrary.simpleMessage("Enter email"),
-    "emailLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "enjoySmartPowerfulExperience": MessageLookupByLibrary.simpleMessage(
       "Enter your email and password to enjoy the experience.",
     ),
@@ -74,9 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "expectedPrice": MessageLookupByLibrary.simpleMessage("Expected Price"),
     "fawryMethod": MessageLookupByLibrary.simpleMessage("Fawry Method"),
     "female": MessageLookupByLibrary.simpleMessage("Female"),
-    "findTransportationButton": MessageLookupByLibrary.simpleMessage(
-      "Find Transportation",
-    ),
+    "findTransportationButton": MessageLookupByLibrary.simpleMessage("Search"),
     "firstNamehint": MessageLookupByLibrary.simpleMessage("Enter First Name"),
     "firstNamelabel": MessageLookupByLibrary.simpleMessage("first name"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage(
@@ -98,7 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "The password entered is incorrect",
     ),
     "invalidEmailError": MessageLookupByLibrary.simpleMessage(
-      "The email address you entered is invalid",
+      "The email you entered is invalid",
+    ),
+    "invalidphoneError": MessageLookupByLibrary.simpleMessage(
+      "The phone you entered is invalid",
     ),
     "labelEmailText": MessageLookupByLibrary.simpleMessage("Email address"),
     "labelPasswordText": MessageLookupByLibrary.simpleMessage("Password"),
@@ -120,10 +125,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordHint": MessageLookupByLibrary.simpleMessage("Enter password"),
     "passwordLabel": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordMatchError": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
+    ),
     "passwordMinLengthError": MessageLookupByLibrary.simpleMessage(
       "Minimum 6 characters",
     ),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment Methods"),
+    "phoneHint": MessageLookupByLibrary.simpleMessage("Enter phone number"),
+    "phoneLabel": MessageLookupByLibrary.simpleMessage("phone number"),
     "placeholder1": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account? ",
     ),

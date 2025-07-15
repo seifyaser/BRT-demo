@@ -1,14 +1,16 @@
 import 'package:demo/generated/l10n.dart';
+import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
+import 'package:demo/services/login_phone_number.dart';
 import 'package:demo/widgets/AskSignbutton.dart';
 import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
 import 'package:demo/presentation/LoignPage/widgets/WelcomeText.dart';
 import 'package:demo/presentation/LoignPage/widgets/rememberForgetRow.dart';
-import 'package:demo/presentation/LoignPage/widgets/FormField.dart';
 import 'package:demo/widgets/CustomButton.dart';
-import 'package:demo/utils/validator.dart';
 import 'package:demo/widgets/BackgroundImages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,12 +20,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormBuilderState>();
   bool rememberMe = false;
   bool isLoading = false;
   bool obscurePassword = true;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: StackFit.expand,
         children: [
           BackgroundImages(),
-
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Form(
+              child: FormBuilder(
                 key: _formKey,
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -45,34 +44,38 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardDismissBehavior:
                           ScrollViewKeyboardDismissBehavior.onDrag,
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
+                        constraints: BoxConstraints(minHeight: constraints.maxHeight),
                         child: IntrinsicHeight(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Languagebutton(),
-
                               const Spacer(),
                               const WelcomeText(),
                               const SizedBox(height: 24),
 
-                              CustomTextfield(
-                                controller: emailController,
-                                labelText: S.of(context).labelEmailText,
-                                hintText: S.of(context).hintEmailText,
-                                keyboardType: TextInputType.emailAddress,
-                               validator: (value) => Validators.validateEmail(context, value),
+                              CustomFormBuilderField(
+                                name: 'phone_number',
+                                label: S.of(context).phoneLabel,
+                                hint: S.of(context).phoneHint,
+                                keyboardType: TextInputType.phone,
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(
+                                    errorText: S.of(context).required,
+                                  ),
+                                  FormBuilderValidators.match(
+                                    RegExp(r'^01[0-2,5]{1}[0-9]{8}$'),
+                                    errorText: S.of(context).invalidphoneError,
+                                  ),
+                                ]),
                               ),
                               const SizedBox(height: 16),
 
-                              CustomTextfield(
-                                controller: passwordController,
-                                labelText: S.of(context).labelPasswordText,
-                                hintText: S.of(context).hintPasswordText,
+                              CustomFormBuilderField(
+                                name: 'password',
+                                label: S.of(context).passwordLabel,
+                                hint: S.of(context).passwordHint,
                                 obscureText: obscurePassword,
-                               validator: (value) => Validators.validatePassword(context, value),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     obscurePassword
@@ -86,6 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     });
                                   },
                                 ),
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(
+                                    errorText: S.of(context).required,
+                                  ),
+                                  FormBuilderValidators.minLength(
+                                    6,
+                                    errorText: S.of(context).passwordMinLengthError,
+                                  ),
+                                ]),
                               ),
                               const SizedBox(height: 8),
 
@@ -97,41 +109,42 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 },
                                 onForgotPassword: () {
-                                  // Go to forgot password
+                                  // Forgot password logic
                                 },
                               ),
-
                               const SizedBox(height: 16),
 
                               CustomButton(
                                 text: S.of(context).loginButton,
                                 isLoading: isLoading,
                                 onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
+                                  if (_formKey.currentState!.saveAndValidate()) {
                                     setState(() => isLoading = true);
+                                    final formData = _formKey.currentState!.value;
 
-                                    await Future.delayed(
-                                      const Duration(seconds:2 ),
-                                    );
-
-                                    setState(() => isLoading = false);
-
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder:
-                                            (context) =>  SuccessPage(
-                                              centerText:
-                                                  S.of(context).SuccessAcountSignInCenterText,
-                                              DescriptionText:
-                                                  S.of(context).SuccessAcountSignInDescriptionText,
-                                            ),
-                                      ),
-                                    );
+                                    try {
+                                      await loginWithPhoneNumber(formData);
+                                      setState(() => isLoading = false);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SuccessPage(
+                                            centerText: S.of(context).SuccessAcountSignInCenterText,
+                                            DescriptionText: S.of(context).SuccessAcountSignInDescriptionText,
+                                          ),
+                                        ),
+                                      );
+                                    } catch (error) {
+                                      setState(() => isLoading = false);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(error.toString()),
+                                        ),
+                                      );
+                                    }
                                   }
                                 },
                               ),
-
                               const SizedBox(height: 18),
 
                               Asksignbutton(
@@ -144,7 +157,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 },
                               ),
-
                               const SizedBox(height: 16),
                             ],
                           ),

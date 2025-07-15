@@ -1,10 +1,9 @@
 import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
 import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
-import 'package:demo/presentation/SignUpPage/widgets/DatebirthField.dart';
-import 'package:demo/presentation/SignUpPage/widgets/genderDropdown.dart';
 import 'package:demo/presentation/SignUpPage/widgets/welcomeHeadline.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
+import 'package:demo/services/register_phone_number.dart';
 import 'package:demo/widgets/AskSignbutton.dart';
 import 'package:demo/widgets/CustomButton.dart';
 import 'package:demo/widgets/BackgroundImages.dart';
@@ -60,51 +59,53 @@ class _SignupScreenState extends State<SignupScreen> {
                               const SizedBox(height: 24),
 
                               // First and Last Name
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomFormBuilderField(
-                                      name: 'first_name',
-                                      label: S.of(context).firstNamelabel,
-                                      hint: S.of(context).firstNamelabel,
-                                      validator: FormBuilderValidators.required(
-                                        errorText: S.of(context).required,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: CustomFormBuilderField(
-                                      name: 'last_name',
-                                      label: S.of(context).lastNamelabel,
-                                      hint: S.of(context).lastNamelabel,
-                                      validator: FormBuilderValidators.required(
-                                        errorText: S.of(context).required,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 16),
+                              // Row(
+                              //   children: [
+                              //     Expanded(
+                              //       child: CustomFormBuilderField(
+                              //         name: 'first_name',
+                              //         label: S.of(context).firstNamelabel,
+                              //         hint: S.of(context).firstNamelabel,
+                              //         validator: FormBuilderValidators.required(
+                              //           errorText: S.of(context).required,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     const SizedBox(width: 16),
+                              //     Expanded(
+                              //       child: CustomFormBuilderField(
+                              //         name: 'last_name',
+                              //         label: S.of(context).lastNamelabel,
+                              //         hint: S.of(context).lastNamelabel,
+                              //         validator: FormBuilderValidators.required(
+                              //           errorText: S.of(context).required,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // const SizedBox(height: 16),
 
-                              // Email
+                              // phone
                               CustomFormBuilderField(
-                                name: 'email',
-                                label: S.of(context).emailLabel,
-                                hint: S.of(context).emailHint,
-                                keyboardType: TextInputType.emailAddress,
+                                name: 'phone_number',
+                                label: S.of(context).phoneLabel,
+                                hint: S.of(context).phoneHint,
+                                keyboardType: TextInputType.phone,
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(
                                     errorText: S.of(context).required,
                                   ),
-                                  FormBuilderValidators.email(
-                                    errorText: S.of(context).invalidEmailError,
+                                  FormBuilderValidators.match(
+                                    RegExp(r'^01[0-2,5]{1}[0-9]{8}$'),
+                                    errorText: S.of(context).invalidphoneError,
                                   ),
                                 ]),
                               ),
+
                               const SizedBox(height: 16),
 
-                              // Password
+                              //Password
                               CustomFormBuilderField(
                                 name: 'password',
                                 label: S.of(context).passwordLabel,
@@ -129,66 +130,111 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                   FormBuilderValidators.minLength(
                                     6,
-                                    errorText: S.of(context).passwordMinLengthError,
+                                    errorText:
+                                        S.of(context).passwordMinLengthError,
                                   ),
                                 ]),
                               ),
                               const SizedBox(height: 16),
 
-                              // Gender Dropdown
-                              CustomDropdownField<String>(
-                                items:  [
-                                  DropdownMenuItem(
-                                    value: 'Male',
-                                    child: Text(S.of(context).male),
+                              CustomFormBuilderField(
+                                name: 'confirm_password',
+                                label: S.of(context).confirmPasswordLabel,
+                                hint: S.of(context).confirmPasswordhint,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    obscurePassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.white,
                                   ),
-                                  DropdownMenuItem(
-                                    value: 'Female',
-                                    child: Text(S.of(context).female),
-                                  ),
-                                ],
-                                validator: FormBuilderValidators.required(
-                                  errorText: S.of(context).pleaseSelectYourGender,
+                                  onPressed: () {
+                                    setState(() {
+                                      obscurePassword = !obscurePassword;
+                                    });
+                                  },
                                 ),
+                                obscureText: obscurePassword,
+                                validator: (val) {
+                                  final password =
+                                      _formKey
+                                          .currentState
+                                          ?.fields['password']
+                                          ?.value;
+                                  if (val == null || val.isEmpty) {
+                                    return S.of(context).required;
+                                  }
+                                  if (val != password) {
+                                    return S.of(context).passwordMatchError;
+                                  }
+                                  return null;
+                                },
                               ),
                               const SizedBox(height: 16),
 
+                              // Gender Dropdown
+                              // CustomDropdownField<String>(
+                              //   items: [
+                              //     DropdownMenuItem(
+                              //       value: 'Male',
+                              //       child: Text(S.of(context).male),
+                              //     ),
+                              //     DropdownMenuItem(
+                              //       value: 'Female',
+                              //       child: Text(S.of(context).female),
+                              //     ),
+                              //   ],
+                              //   validator: FormBuilderValidators.required(
+                              //     errorText:
+                              //         S.of(context).pleaseSelectYourGender,
+                              //   ),
+                              // ),
+                              //     const SizedBox(height: 16),
+
                               // Date of Birth Picker
-                              const DateField(
-                                name: 'date_of_birth',
-                              ),
-                              const SizedBox(height: 32),
+                              // const DateField(name: 'date_of_birth'),
+                              // const SizedBox(height: 32),
 
                               // Sign Up Button
                               CustomButton(
                                 text: S.of(context).SignUpButton,
                                 isLoading: isLoading,
                                 onPressed: () async {
-                                  if (_formKey.currentState!
-                                      .saveAndValidate()) {
+                                  if (_formKey.currentState!.saveAndValidate()) {
                                     setState(() => isLoading = true);
 
-                                    await Future.delayed(
-                                      const Duration(seconds: 2),
-                                    );
+                                    final formData = _formKey.currentState!.value;
 
-                                    setState(() => isLoading = false);
+                                    try {
+                                      await registerWithPhoneNumber(formData);
 
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder:
-                                            (context) =>  SuccessPage(
-                                              centerText:
-                                                  S.of(context).SuccessAcountSignupCenterText,
-                                              DescriptionText:
-                                                  S.of(context).SuccessAcountSignupDescriptionText,
-                                            ),
-                                      ),
-                                    );
+                                      setState(() => isLoading = false);
+
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => SuccessPage(
+                                                centerText:
+                                                    S.of(context).SuccessAcountSignupCenterText,
+                                                DescriptionText:
+                                                    S.of(context).SuccessAcountSignupDescriptionText,
+                                              ),
+                                        ),
+                                      );
+                                    } catch (error) {
+                                      setState(() => isLoading = false);
+
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(error.toString()),
+                                        ),
+                                      );
+                                    }
                                   }
                                 },
                               ),
+
                               const SizedBox(height: 16),
 
                               // Already have account

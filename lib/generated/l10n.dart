@@ -285,14 +285,19 @@ class S {
     );
   }
 
-  /// `Email`
-  String get emailLabel {
-    return Intl.message('Email', name: 'emailLabel', desc: '', args: []);
+  /// `phone number`
+  String get phoneLabel {
+    return Intl.message('phone number', name: 'phoneLabel', desc: '', args: []);
   }
 
-  /// `Enter email`
-  String get emailHint {
-    return Intl.message('Enter email', name: 'emailHint', desc: '', args: []);
+  /// `Enter phone number`
+  String get phoneHint {
+    return Intl.message(
+      'Enter phone number',
+      name: 'phoneHint',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Password`
@@ -375,11 +380,41 @@ class S {
     return Intl.message('Sign In', name: 'placeholder4', desc: '', args: []);
   }
 
-  /// `The email address you entered is invalid`
-  String get invalidEmailError {
+  /// `The phone you entered is invalid`
+  String get invalidphoneError {
     return Intl.message(
-      'The email address you entered is invalid',
-      name: 'invalidEmailError',
+      'The phone you entered is invalid',
+      name: 'invalidphoneError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirmPasswordLabel {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirmPasswordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Confirm Password`
+  String get confirmPasswordhint {
+    return Intl.message(
+      'Enter Confirm Password',
+      name: 'confirmPasswordhint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwordMatchError {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwordMatchError',
       desc: '',
       args: [],
     );
@@ -480,6 +515,16 @@ class S {
     return Intl.message(
       'Welcome! Enjoy a seamless experience and special offers.',
       name: 'SuccessAcountSignInDescriptionText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email you entered is invalid`
+  String get invalidEmailError {
+    return Intl.message(
+      'The email you entered is invalid',
+      name: 'invalidEmailError',
       desc: '',
       args: [],
     );
@@ -660,10 +705,10 @@ class S {
     return Intl.message('150 EGP', name: 'priceValue', desc: '', args: []);
   }
 
-  /// `Find Transportation`
+  /// `Search`
   String get findTransportationButton {
     return Intl.message(
-      'Find Transportation',
+      'Search',
       name: 'findTransportationButton',
       desc: '',
       args: [],

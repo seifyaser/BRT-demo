@@ -1,4 +1,3 @@
-import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/TicketCardScreen/Widgets/TicketCardDeatils.dart';
 import 'package:flutter/material.dart';
 

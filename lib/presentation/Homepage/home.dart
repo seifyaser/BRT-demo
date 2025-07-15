@@ -1,12 +1,9 @@
+import 'dart:developer';
 import 'package:demo/generated/l10n.dart';
-import 'package:demo/presentation/Homepage/widgets/AvailableLinesHeader.dart';
-import 'package:demo/presentation/Homepage/widgets/DateReserveField.dart';
+import 'package:demo/models/StationsModel.dart';
 import 'package:demo/presentation/Homepage/widgets/GreetingHeadline.dart';
-import 'package:demo/presentation/Homepage/widgets/PriceField.dart';
-import 'package:demo/presentation/Homepage/widgets/TicketCountField.dart';
-import 'package:demo/presentation/Homepage/widgets/locationSelectRow.dart';
-import 'package:demo/presentation/Homepage/widgets/paymentCardField.dart';
-import 'package:demo/presentation/Homepage/widgets/ticketCard.dart';
+import 'package:demo/presentation/Homepage/widgets/locationSelectColumn.dart';
+import 'package:demo/services/get_stations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -20,12 +17,25 @@ class _HomeState extends State<Home> {
   String? _selectedToLocation;
   final _formKey = GlobalKey<FormBuilderState>();
 
-  final List<String> locations = [
-    'المعادي',
-    'جسر السويس',
-    'مدينة نصر',
-    'التجمع الخامس',
-  ];
+  StationModel? selectedFromStation;
+  StationModel? selectedToStation;
+
+  @override
+  void initState() {
+    super.initState();
+    loadStations();
+  }
+
+  List<StationModel> stationList = [];
+
+  Future<void> loadStations() async {
+    try {
+      stationList = await getStations();
+      setState(() {});
+    } catch (e) {
+      log(' $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +60,15 @@ class _HomeState extends State<Home> {
                 // ),
               ),
               padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
-              child:  Greetingheadline(),
+              child: Greetingheadline(),
             ),
 
             // Form Content
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20,
+              ),
               child: FormBuilder(
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -71,52 +84,54 @@ class _HomeState extends State<Home> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AvailableLinesHeader(),
                             const SizedBox(height: 20),
-                            LocationSelectorRow(
-                              locations: locations,
-                              selectedFrom: _selectedFromLocation,
-                              selectedTo: _selectedToLocation,
-                              onFromChanged: (value) {
-                                setState(() => _selectedFromLocation = value);
+
+                            ///////// location select column
+                            LocationSelectorColumn(
+                              stations: stationList,
+                              selectedFrom: selectedFromStation,
+                              selectedTo: selectedToStation,
+                              onFromChanged: (station) {
+                                setState(() {
+                                  selectedFromStation = station;
+                                });
                               },
-                              onToChanged: (value) {
-                                setState(() => _selectedToLocation = value);
+                              onToChanged: (station) {
+                                setState(() {
+                                  selectedToStation = station;
+                                });
                               },
                             ),
-                            const SizedBox(height: 20),
-                            const TicketCountField(),
-                            const SizedBox(height: 20),
-                            const DateReserveField(),
-                            const SizedBox(height: 20),
-                            const PaymentCardField(),
-                            const SizedBox(height: 20),
-                            PriceField(),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20),
                             Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.saveAndValidate()) {
-                                    final values = _formKey.currentState!.value;
-                                    print(values);
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF427292),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!
+                                        .saveAndValidate()) {
+                                      final values =
+                                          _formKey.currentState!.value;
+                                      print(values);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF427292),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 60,
+                                      vertical: 15,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 60,
-                                    vertical: 15,
-                                  ),
-                                ),
-                                child:  Text(
-                                  S.of(context).findTransportationButton,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                  child: Text(
+                                    S.of(context).findTransportationButton,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -127,34 +142,42 @@ class _HomeState extends State<Home> {
                     ),
                     const SizedBox(height: 30),
 
-                    // My Trips Section
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                         Text(
-                          S.of(context).MyTrips,
-                          style: TextStyle(
-                            color: Color(0xFF427292),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/reserve-screen');
-                          },
-                          child:  Text(
-                            S.of(context).showAll,
+                    //    My Trips Section
+                    Container(
+                      height: 60,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).MyTrips,
                             style: TextStyle(
                               color: Color(0xFF427292),
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/reserve-screen');
+                            },
+                            child: Text(
+                              S.of(context).showAll,
+                              style: TextStyle(
+                                color: Color(0xFF427292),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    const TicketCard(),
+                    // const TicketCard(),
                     const SizedBox(height: 100),
                   ],
                 ),
@@ -164,16 +187,6 @@ class _HomeState extends State<Home> {
         ),
       ),
 
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: 0,
-      //   selectedItemColor: const Color(0xFF3363FF),
-      //   unselectedItemColor: Colors.grey,
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'حجز التذكرة'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'المزيد'),
-      //   ],
-      // ),
     );
   }
 }

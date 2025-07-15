@@ -49,11 +49,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "arrival": MessageLookupByLibrary.simpleMessage("معاد الوصول"),
     "availableLines": MessageLookupByLibrary.simpleMessage("الخطوط المتاحة"),
     "cairo": MessageLookupByLibrary.simpleMessage("القاهرة"),
+    "confirmPasswordLabel": MessageLookupByLibrary.simpleMessage(
+      "تاكيد كلمة المرور",
+    ),
+    "confirmPasswordhint": MessageLookupByLibrary.simpleMessage(
+      "ادخل كلمة المرور الخاصة بك",
+    ),
     "dateSelect": MessageLookupByLibrary.simpleMessage("ادخل تاريخ الميلاد"),
     "datebirthlabel": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
     "departure": MessageLookupByLibrary.simpleMessage("معاد المغادرة"),
-    "emailHint": MessageLookupByLibrary.simpleMessage("ادخل بريدك الإلكتروني"),
-    "emailLabel": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "enjoySmartPowerfulExperience": MessageLookupByLibrary.simpleMessage(
       "مرحباً بعودتك! استمتع بتجربة ذكية وقوية.",
     ),
@@ -97,8 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "incorrectPasswordError": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور المدخلة غير صحيحة",
     ),
-    "invalidEmailError": MessageLookupByLibrary.simpleMessage(
-      " البريد الإلكتروني الذي أدخلته غير صالح",
+    "invalidphoneError": MessageLookupByLibrary.simpleMessage(
+      "ادخل رقم هاتف صحيح",
     ),
     "labelEmailText": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "labelPasswordText": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -122,10 +126,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "ادخل كلمة المرور الخاصة بك",
     ),
     "passwordLabel": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "passwordMatchError": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور غير متطابقة",
+    ),
     "passwordMinLengthError": MessageLookupByLibrary.simpleMessage(
       " الحد الادنى لعدد الحروف هو 6",
     ),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("طرق الدفع"),
+    "phoneHint": MessageLookupByLibrary.simpleMessage("ادخل الهاتف المحمول"),
+    "phoneLabel": MessageLookupByLibrary.simpleMessage("الهاتف المحمول"),
     "placeholder1": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
     "placeholder2": MessageLookupByLibrary.simpleMessage("سجل الآن"),
     "placeholder3": MessageLookupByLibrary.simpleMessage(" لديك حساب؟"),
