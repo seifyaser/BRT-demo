@@ -17,7 +17,7 @@ Widget buildInfoRow(String label, {
           border: Border.all(color: Colors.grey.shade300),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               label,

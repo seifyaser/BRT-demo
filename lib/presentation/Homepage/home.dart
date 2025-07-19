@@ -1,14 +1,18 @@
-import 'dart:developer';
+import 'package:demo/Cubits/get_Stations/stations_cubit.dart';
+import 'package:demo/Cubits/ticket_category/ticket_category_cubit.dart';
+import 'package:demo/Cubits/ticket_category/ticket_category_state.dart';
 import 'package:demo/generated/l10n.dart';
 import 'package:demo/models/StationsModel.dart';
-import 'package:demo/presentation/Homepage/widgets/BuildInfoTRIProw.dart';
-import 'package:demo/presentation/Homepage/widgets/GreetingHeadline.dart';
+import 'package:demo/models/TicketCategoryModel.dart';
+import 'package:demo/presentation/Homepage/widgets/CustomTripDetailsCard.dart';
+import 'package:demo/presentation/Homepage/widgets/HomeHeaderDecoration.dart';
 import 'package:demo/presentation/Homepage/widgets/MyTripsRow.dart';
+import 'package:demo/presentation/Homepage/widgets/SearchStylebutton.dart';
 import 'package:demo/presentation/Homepage/widgets/locationSelectColumn.dart';
-import 'package:demo/services/get_stations.dart';
+import 'package:demo/utils/NoInternetWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,213 +26,156 @@ class _HomeState extends State<Home> {
   StationModel? selectedToStation;
   DateTime? selectedReserveDate;
   bool showTripDetails = false;
-
-  List<StationModel> stationList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    loadStations();
-  }
-
-  Future<void> loadStations() async {
-    try {
-      stationList = await getStations();
-      setState(() {});
-    } catch (e) {
-      log('Error loading stations: $e');
-    }
-  }
-
+  late final TicketCategoryModel ticketCategory;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 330,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF427292), Color(0xFF3363FF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                  padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
-                  child: Greetingheadline(),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 180,
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
-
-                  child: FormBuilder(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      children: [
-                        Card(
-                          elevation: 8,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => StationsCubit()..fetchStations()),
+        BlocProvider(create: (_) => TicketCategoryCubit()),
+      ],
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  HomeHeaderDecoration(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 180,left: 20, right: 20, bottom: 20,),
+                    child: BlocBuilder<StationsCubit, StationsState>(
+                      builder: (context, state) {
+                        
+                        if (state is StationsError) {
+                          if (state.message == 'no_internet') {
+                            return noInternetWidget();
+                          }
+                          return Center(child: Text('${state.message}'));
+                        }
+                        if (state is StationsLoaded) {
+                          final stationList = state.stations;
+                          return FormBuilder(
+                            key: _formKey,
+                            autovalidateMode:AutovalidateMode.onUserInteraction,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 20),
-                                LocationSelectorColumn(
-                                  stations: stationList,
-                                  selectedFrom: selectedFromStation,
-                                  selectedTo: selectedToStation,
-                                  onFromChanged: (station) {
-                                    setState(() {
-                                      selectedFromStation = station;
-                                    });
-                                  },
-                                  onToChanged: (station) {
-                                    setState(() {
-                                      selectedToStation = station;
-                                    });
-                                  },
-                                ),
-                                const SizedBox(height: 20),
-                                Center(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        if (_formKey.currentState!
-                                                .saveAndValidate() &&
-                                            selectedFromStation != null &&
-                                            selectedToStation != null) {
-                                          setState(() {
-                                            showTripDetails = true;
-                                          });
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(
-                                          0xFF427292,
+                                Card(
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        LocationSelectorColumn(
+                                          stations: stationList,
+                                          selectedFrom: selectedFromStation,
+                                          selectedTo: selectedToStation,
+                                          onFromChanged: (station) {
+                                            setState(() {
+                                              selectedFromStation = station;
+                                            });
+                                          },
+                                          onToChanged: (station) {
+                                            setState(() {
+                                              selectedToStation = station;
+                                            });
+                                          },
+                                          onSwapPressed: () {
+                                            setState(() {
+                                              final temp = selectedFromStation;
+                                              selectedFromStation = selectedToStation;
+                                              selectedToStation = temp;
+                                            });
+                                          },
                                         ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            15,
+                                        const SizedBox(height: 20),
+                                        Center(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                if (_formKey.currentState!.saveAndValidate() && selectedFromStation != null &&
+                                                    selectedToStation != null) {
+                                                  context.read<TicketCategoryCubit>().fetchTicketCategory(
+                                                        fromStationId: selectedFromStation!.id,
+                                                        toStationId: selectedToStation!.id,
+                                                      );
+
+                                                  setState(() {
+                                                    showTripDetails = true;
+                                                  });
+                                                }
+                                              },
+                                              style: searchButtonStyle(),
+                                              child: Text(S.of(context).findTransportationButton),
+                                            ),
                                           ),
                                         ),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 60,
-                                          vertical: 15,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        S.of(context).findTransportationButton,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        if (showTripDetails)
-                          Card(
-                            elevation: 6,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  buildInfoRow(
-                                    "لون التذكرة",
-                                    trailing: const Icon(
-                                      Icons.circle,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                  buildInfoRow("عدد المحطات", value: "4"),
-                                  buildInfoRow("السعر", value: "5.0 ج.م"),
-                                  buildInfoRow(
-                                    "تاريخ الحجز",
-                                    value:
-                                        selectedReserveDate != null
-                                            ? DateFormat(
-                                              'yyyy-MM-dd',
-                                            ).format(selectedReserveDate!)
-                                            : "اختر",
-                                    onTap: () async {
-                                      DateTime initial =
-                                          selectedReserveDate ?? DateTime.now();
-                                      DateTime? picked = await showDatePicker(
-                                        context: context,
-                                        initialDate:
-                                            initial.isBefore(DateTime.now())
-                                                ? DateTime.now()
-                                                : initial,
-                                        firstDate: DateTime.now(),
-                                        lastDate: DateTime(2030),
-                                        builder: (context, child) {
-                                          return Theme(
-                                            data: Theme.of(context).copyWith(
-                                              colorScheme:
-                                                  const ColorScheme.light(
-                                                    primary: Color(0xff427292),
-                                                    onPrimary: Colors.white,
-                                                    onSurface: Colors.black,
-                                                  ),
-                                              textButtonTheme:
-                                                  TextButtonThemeData(
-                                                    style: TextButton.styleFrom(
-                                                      foregroundColor: Color(
-                                                        0xff427292,
-                                                      ),
-                                                    ),
-                                                  ),
-                                            ),
-                                            child: child!,
-                                          );
-                                        },
-                                      );
-                                      if (picked != null) {
-                                        setState(() {
-                                          selectedReserveDate = picked;
-                                        });
+                                const SizedBox(height: 20),
+                                if (showTripDetails)
+                                  BlocBuilder<TicketCategoryCubit,TicketCategoryState>(
+                                    builder: (context, state) {
+                                      if (state is TicketCategoryLoading) {
+                                        return const Padding(
+                                          padding: EdgeInsets.all(20.0),
+                                          child: CircularProgressIndicator(),
+                                        );
                                       }
+
+                                      if (state is TicketCategoryLoaded) {
+                                        final ticketDetails = state.ticket;
+
+                                        return CustomTripDetailsCard(
+                                          selectedReserveDate: selectedReserveDate,
+                                          onDateTap: () async {
+                                            DateTime initial = selectedReserveDate ?? DateTime.now();
+                                            DateTime? picked =
+                                                await showDatePicker(
+                                                  context: context,
+                                                  initialDate: initial.isBefore(DateTime.now()) ? DateTime.now(): initial,
+                                                  firstDate: DateTime.now(),
+                                                  lastDate: DateTime(2030),
+                                                );
+                                            if (picked != null) {
+                                              setState(() {
+                                                selectedReserveDate = picked;
+                                              });
+                                            }
+                                          },
+                                          ticket: ticketDetails,
+                                        );
+                                      }
+
+                                      if (state is TicketCategoryError) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Text(state.message),
+                                        );
+                                      }
+                                      return const SizedBox(); // Default placeholder
                                     },
                                   ),
-                                  buildInfoRow("عدد التذاكر", value: "1"),
-                                ],
-                              ),
+                              ],
                             ),
-                          ),
-                        const SizedBox(height: 10),
-                        Mytripsrow(),
-                        const SizedBox(height: 100),
-                      ],
+                          );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              Padding(padding: const EdgeInsets.all(25), child: Mytripsrow()),
+            ],
+          ),
         ),
       ),
     );
