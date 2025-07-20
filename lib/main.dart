@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
    
-    home:  Home(),
+    // home:  Home(),
 
-        //   routes: AppRoutes.routes,
-        // initialRoute: AppRoutes.initial, 
+          routes: AppRoutes.routes,
+        initialRoute: AppRoutes.initial, 
          );
   }
 }

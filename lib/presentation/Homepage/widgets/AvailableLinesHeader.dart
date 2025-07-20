@@ -7,34 +7,37 @@ class AvailableLinesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children:  [
-        Center(
-          child: Text(
-            S.of(context).availableLines,
-            style: TextStyle(fontSize: 16, color: Color(0xff9C9A9A)),
+    return Padding(
+      padding: const EdgeInsets.only(right: 11),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:  [
+          Center(
+            child: Text(
+              S.of(context).availableLines,
+              style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 0, 0, 0)),
+            ),
           ),
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            LocationLine(
-              text: S.of(context).alQalyubia,
-              color: Color.fromARGB(255, 255, 0, 0),
-            ),
-            LocationLine(
-              text: S.of(context).giza,
-              color: Color.fromARGB(255, 255, 166, 0),
-            ),
-            LocationLine(
-              text: S.of(context).cairo,
-              color: Color.fromARGB(255, 230, 0, 255),
-            ),
-          ],
-        ),
-      ],
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              LocationLine(
+                text: S.of(context).alQalyubia,
+                color: Color.fromARGB(255, 255, 0, 0),
+              ),
+              LocationLine(
+                text: S.of(context).giza,
+                color: Color.fromARGB(255, 255, 166, 0),
+              ),
+              LocationLine(
+                text: S.of(context).cairo,
+                color: Color.fromARGB(255, 230, 0, 255),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

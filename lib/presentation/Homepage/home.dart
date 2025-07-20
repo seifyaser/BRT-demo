@@ -1,9 +1,13 @@
+import 'package:demo/Cubits/Create_Transaction/Create_transaction_cubit.dart';
+import 'package:demo/Cubits/Create_Transaction/Create_transaction_state.dart';
 import 'package:demo/Cubits/get_Stations/stations_cubit.dart';
 import 'package:demo/Cubits/ticket_category/ticket_category_cubit.dart';
 import 'package:demo/Cubits/ticket_category/ticket_category_state.dart';
 import 'package:demo/generated/l10n.dart';
 import 'package:demo/models/StationsModel.dart';
-import 'package:demo/models/TicketCategoryModel.dart';
+import 'package:demo/models/TransactionDetailsModel.dart';
+import 'package:demo/models/TransactionPostModel.dart';
+import 'package:demo/presentation/Homepage/widgets/AvailableLinesHeader.dart';
 import 'package:demo/presentation/Homepage/widgets/CustomTripDetailsCard.dart';
 import 'package:demo/presentation/Homepage/widgets/HomeHeaderDecoration.dart';
 import 'package:demo/presentation/Homepage/widgets/MyTripsRow.dart';
@@ -26,13 +30,15 @@ class _HomeState extends State<Home> {
   StationModel? selectedToStation;
   DateTime? selectedReserveDate;
   bool showTripDetails = false;
-  late final TicketCategoryModel ticketCategory;
+  int? ticketCount;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => StationsCubit()..fetchStations()),
         BlocProvider(create: (_) => TicketCategoryCubit()),
+        BlocProvider(create: (_) => TransactionCubit()),
       ],
       child: Scaffold(
         backgroundColor: Colors.grey[100],
@@ -43,10 +49,14 @@ class _HomeState extends State<Home> {
                 children: [
                   HomeHeaderDecoration(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 180,left: 20, right: 20, bottom: 20,),
+                    padding: const EdgeInsets.only(
+                      top: 180,
+                      left: 20,
+                      right: 20,
+                      bottom: 20,
+                    ),
                     child: BlocBuilder<StationsCubit, StationsState>(
                       builder: (context, state) {
-                        
                         if (state is StationsError) {
                           if (state.message == 'no_internet') {
                             return noInternetWidget();
@@ -57,7 +67,8 @@ class _HomeState extends State<Home> {
                           final stationList = state.stations;
                           return FormBuilder(
                             key: _formKey,
-                            autovalidateMode:AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: Column(
                               children: [
                                 Card(
@@ -69,7 +80,9 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.all(20.0),
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 20),
+                                        AvailableLinesHeader(),
+
+                                        const SizedBox(height: 25),
                                         LocationSelectorColumn(
                                           stations: stationList,
                                           selectedFrom: selectedFromStation,
@@ -87,7 +100,8 @@ class _HomeState extends State<Home> {
                                           onSwapPressed: () {
                                             setState(() {
                                               final temp = selectedFromStation;
-                                              selectedFromStation = selectedToStation;
+                                              selectedFromStation =
+                                                  selectedToStation;
                                               selectedToStation = temp;
                                             });
                                           },
@@ -98,11 +112,22 @@ class _HomeState extends State<Home> {
                                             width: double.infinity,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                if (_formKey.currentState!.saveAndValidate() && selectedFromStation != null &&
+                                                if (_formKey.currentState!
+                                                        .saveAndValidate() &&
+                                                    selectedFromStation !=
+                                                        null &&
                                                     selectedToStation != null) {
-                                                  context.read<TicketCategoryCubit>().fetchTicketCategory(
-                                                        fromStationId: selectedFromStation!.id,
-                                                        toStationId: selectedToStation!.id,
+                                                  context
+                                                      .read<
+                                                        TicketCategoryCubit
+                                                      >()
+                                                      .fetchTicketCategory(
+                                                        fromStationId:
+                                                            selectedFromStation!
+                                                                .id,
+                                                        toStationId:
+                                                            selectedToStation!
+                                                                .id,
                                                       );
 
                                                   setState(() {
@@ -111,7 +136,11 @@ class _HomeState extends State<Home> {
                                                 }
                                               },
                                               style: searchButtonStyle(),
-                                              child: Text(S.of(context).findTransportationButton),
+                                              child: Text(
+                                                S
+                                                    .of(context)
+                                                    .findTransportationButton,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -121,7 +150,10 @@ class _HomeState extends State<Home> {
                                 ),
                                 const SizedBox(height: 20),
                                 if (showTripDetails)
-                                  BlocBuilder<TicketCategoryCubit,TicketCategoryState>(
+                                  BlocBuilder<
+                                    TicketCategoryCubit,
+                                    TicketCategoryState
+                                  >(
                                     builder: (context, state) {
                                       if (state is TicketCategoryLoading) {
                                         return const Padding(
@@ -133,24 +165,105 @@ class _HomeState extends State<Home> {
                                       if (state is TicketCategoryLoaded) {
                                         final ticketDetails = state.ticket;
 
-                                        return CustomTripDetailsCard(
-                                          selectedReserveDate: selectedReserveDate,
-                                          onDateTap: () async {
-                                            DateTime initial = selectedReserveDate ?? DateTime.now();
-                                            DateTime? picked =
-                                                await showDatePicker(
-                                                  context: context,
-                                                  initialDate: initial.isBefore(DateTime.now()) ? DateTime.now(): initial,
-                                                  firstDate: DateTime.now(),
-                                                  lastDate: DateTime(2030),
-                                                );
-                                            if (picked != null) {
-                                              setState(() {
-                                                selectedReserveDate = picked;
-                                              });
+                                        return BlocConsumer<
+                                          TransactionCubit,
+                                          TransactionState
+                                        >(
+                                          listener: (context, tState) {
+                                            if (tState is TransactionSuccess) {
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'تم الحجز بنجاح',
+                                                  ),
+                                                ),
+                                              );
+                                            } else if (tState
+                                                is TransactionError) {
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(tState.message),
+                                                ),
+                                              );
                                             }
                                           },
-                                          ticket: ticketDetails,
+                                          builder: (context, tState) {
+                                            return CustomTripDetailsCard(
+                                              selectedReserveDate:
+                                                  selectedReserveDate,
+                                              onDateTap: () async {
+                                                DateTime initial =
+                                                    selectedReserveDate ??
+                                                    DateTime.now();
+                                                DateTime? picked =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          initial.isBefore(
+                                                                DateTime.now(),
+                                                              )
+                                                              ? DateTime.now()
+                                                              : initial,
+                                                      firstDate: DateTime.now(),
+                                                      lastDate: DateTime(2030),
+                                                    );
+                                                if (picked != null) {
+                                                  setState(() {
+                                                    selectedReserveDate =
+                                                        picked;
+                                                  });
+                                                }
+                                              },
+                                              ticket: ticketDetails,
+                                              ticketCount: ticketCount ?? 1,
+                                              onCountChanged: (newCount) {
+                                                setState(() {
+                                                  ticketCount = newCount;
+                                                });
+                                              },
+                                              onReserve: () {
+                                                if (selectedReserveDate ==
+                                                    null) {
+                                                  ScaffoldMessenger.of(
+                                                    context,
+                                                  ).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'يرجى اختيار تاريخ',
+                                                      ),
+                                                    ),
+                                                  );
+                                                  return;
+                                                }
+                                                final transaction =
+                                                    TransactionPostModel(
+                                                      shiftId: 3,
+                                                      transactionDetails: [
+                                                        TransactionDetailModel(
+                                                          count:
+                                                              ticketCount ?? 1,
+                                                          ticketCategoryId:
+                                                              ticketDetails.id,
+                                                          profileId: 1,
+                                                          tripDate:
+                                                              selectedReserveDate!
+                                                                  .toIso8601String(),
+                                                        ),
+                                                      ],
+                                                    );
+
+                                                context
+                                                    .read<TransactionCubit>()
+                                                    .createTransaction(
+                                                      transaction,
+                                                    );
+                                              },
+                                            );
+                                          },
                                         );
                                       }
 

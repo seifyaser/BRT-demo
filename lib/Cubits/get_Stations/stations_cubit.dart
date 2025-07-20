@@ -36,6 +36,8 @@ class StationsCubit extends Cubit<StationsState> {
       final List<dynamic> data = response.data;
       final stations = data.map((json) => StationModel.fromJson(json)).toList();
 
+    log( 'getStations status code:' + response.statusCode.toString());
+
       emit(StationsLoaded(stations));
     } on DioException  catch (e){
      if (e.type == DioExceptionType.connectionError)

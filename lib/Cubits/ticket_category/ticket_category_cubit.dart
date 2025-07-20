@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:demo/Cubits/ticket_category/ticket_category_state.dart';
 import 'package:dio/dio.dart';
@@ -31,6 +33,7 @@ class TicketCategoryCubit extends Cubit<TicketCategoryState> {
         ),
       );
       final data = TicketCategoryModel.fromJson(response.data);
+     log( 'ticket category status code:' + response.statusCode.toString());
       emit(TicketCategoryLoaded(data));
     } catch (e) {
       emit(TicketCategoryError('فشل في تحميل تفاصيل التذكرة'));

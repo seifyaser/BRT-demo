@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ButtonStyle searchButtonStyle() {
   return ElevatedButton.styleFrom(
+    foregroundColor: Colors.white,
     backgroundColor: const Color(0xFF427292),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(15),
