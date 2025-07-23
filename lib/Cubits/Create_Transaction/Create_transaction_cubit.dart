@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:demo/Cubits/Create_Transaction/Create_transaction_state.dart';
+import 'package:demo/models/TransactionDetailsModel.dart';
 import 'package:demo/models/TransactionPostModel.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,16 +29,17 @@ class TransactionCubit extends Cubit<TransactionState> {
         ),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        // log('transaction status code:' + response.statusCode.toString());
-        // log(jsonEncode(transaction.toJson())); // before send to server
-        log("Response data: ${response.data}"); // after send to server
+     if (response.statusCode == 200) {
+  log("Response data: ${response.data}");
 
-        // log(jsonEncode(transaction.transactionDetails.map((e) => e.toJson()).toList()));
+  final data = response.data;
+  final List<dynamic> detailsJson = data['data']['transactionDetails'];
 
-       
-        emit(TransactionSuccess());
-      } else {
+  final tickets = detailsJson.map((e) => TransactionDetailModel.fromJson(e)).toList();
+
+  emit(TransactionSuccess(tickets)); 
+}
+ else {
         emit(TransactionError("error creating transaction ${response.statusCode}"));
         // log(response.data);
       }

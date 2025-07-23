@@ -1,9 +1,12 @@
 import 'package:demo/generated/l10n.dart';
+import 'package:demo/models/TransactionDetailsModel.dart';
 import 'package:demo/presentation/Homepage/widgets/ticketCard.dart';
 import 'package:flutter/material.dart';
 
 class ReservationPage extends StatelessWidget {
-  const ReservationPage({super.key});
+   final List<TransactionDetailModel> tickets;
+
+  const ReservationPage({super.key, required this.tickets});
 
   @override
   Widget build(BuildContext context) {
@@ -56,15 +59,16 @@ class ReservationPage extends StatelessWidget {
           ),
 
           // Content
-          Positioned.fill(
+           Positioned.fill(
             top: 140,
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              itemCount: 5,
+              itemCount: tickets.length,
               itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.only(bottom: 15.0),
-                  child: TicketCard(),
+                final ticket = tickets[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 15.0),
+                  child: TicketCard(ticket: ticket), 
                 );
               },
             ),
