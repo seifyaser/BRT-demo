@@ -23,8 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Distance": MessageLookupByLibrary.simpleMessage("المسافة"),
+    "LE": MessageLookupByLibrary.simpleMessage("ج.م"),
     "MyTrips": MessageLookupByLibrary.simpleMessage("رحلاتي"),
     "NoOfTickets": MessageLookupByLibrary.simpleMessage("عدد التذاكر"),
+    "Price": MessageLookupByLibrary.simpleMessage("السعر"),
     "SelectLocationerror": MessageLookupByLibrary.simpleMessage(
       "اختار عاوز تروح فين",
     ),
@@ -41,14 +43,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "SuccessAcountSignupDescriptionText": MessageLookupByLibrary.simpleMessage(
       "مرحباً! تم انشاء حسابك بنجاح، ويمكنك الان تصفح العروض والمنتجات الحديثة",
     ),
+    "TicketColor": MessageLookupByLibrary.simpleMessage("لون التذكرة"),
     "TicketNo": MessageLookupByLibrary.simpleMessage("التذكرة رقم"),
     "TicketPrice": MessageLookupByLibrary.simpleMessage("سعر التذكرة"),
     "TicketReservation": MessageLookupByLibrary.simpleMessage("كل رحلاتي"),
+    "TicketsCount": MessageLookupByLibrary.simpleMessage("عدد التذاكر"),
     "ViewDetails": MessageLookupByLibrary.simpleMessage("عرض التفاصيل"),
     "alQalyubia": MessageLookupByLibrary.simpleMessage("القليوبية"),
     "arrival": MessageLookupByLibrary.simpleMessage("معاد الوصول"),
     "availableLines": MessageLookupByLibrary.simpleMessage("الخطوط المتاحة"),
     "cairo": MessageLookupByLibrary.simpleMessage("القاهرة"),
+    "choose": MessageLookupByLibrary.simpleMessage("اختر"),
     "confirmPasswordLabel": MessageLookupByLibrary.simpleMessage(
       "تاكيد كلمة المرور",
     ),
@@ -160,17 +165,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseeneterTicketCount": MessageLookupByLibrary.simpleMessage(
       "حدد عدد التذاكر",
     ),
-    "price": MessageLookupByLibrary.simpleMessage("السعر"),
     "priceValue": MessageLookupByLibrary.simpleMessage("150 جنيه مصري"),
     "rememberMe": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "required": MessageLookupByLibrary.simpleMessage("مطلوب"),
+    "reservationSuccess": MessageLookupByLibrary.simpleMessage(
+      "تم الحجز بنجاح",
+    ),
     "reserveDate": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
     "reserveDateExample": MessageLookupByLibrary.simpleMessage(
       "مثال: 16 يناير 2023",
     ),
+    "reserveTicket": MessageLookupByLibrary.simpleMessage("حجز التذكرة"),
     "showAll": MessageLookupByLibrary.simpleMessage("اعرض الكل"),
+    "stationsCounts": MessageLookupByLibrary.simpleMessage("عدد المحطات"),
     "ticketCount": MessageLookupByLibrary.simpleMessage("عدد التذاكر"),
     "ticketCountExample": MessageLookupByLibrary.simpleMessage("مثال: 1"),
+    "ticketDate": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
     "toLabel": MessageLookupByLibrary.simpleMessage("إلى"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك!"),
     "whereAreYouGoingToday": MessageLookupByLibrary.simpleMessage(

@@ -1,3 +1,4 @@
+import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:demo/models/TicketCategoryModel.dart';
@@ -33,36 +34,36 @@ class CustomTripDetailsCard extends StatelessWidget {
         child: Column(
           children: [
             buildInfoRow(
-              "لون التذكرة",
+             S.of(context).TicketColor,
               trailing: Icon(
                 Icons.circle,
                 color: _getColorFromName(ticket?.color),
               ),
             ),
             buildInfoRow(
-              "عدد المحطات",
+              S.of(context).stationsCounts,
               value: ticket?.stationCount.toString() ?? "-",
             ),
             buildInfoRow(
-              "السعر",
+              S.of(context).Price,
               value: ticket?.price != null
-                  ? "${ticket!.price.toStringAsFixed(2)} ج.م"
+                  ? "${ticket!.price.toStringAsFixed(2)}  ${S.of(context).LE}"
                   : "-",
             ),
             buildInfoRow(
-              "تاريخ الحجز",
+              S.of(context).reserveDate,
               value: selectedReserveDate != null
                   ? DateFormat('yyyy-MM-dd').format(selectedReserveDate!)
-                  : "اختر",
+                  : S.of(context).choose,
               onTap: onDateTap,
             ),
             buildInfoRow(
-  "عدد التذاكر",
-  trailing: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      IconButton(
-        onPressed: () {
+             S.of(context).ticketCount,
+              trailing: Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+             IconButton(
+             onPressed: () {
           if (ticketCount > 1) onCountChanged?.call(ticketCount - 1);
         },
         icon: Icon(Icons.remove),

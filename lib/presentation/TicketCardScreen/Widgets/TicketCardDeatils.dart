@@ -94,7 +94,7 @@ class TicketCardDetails extends StatelessWidget {
                     TripDetailItem(title: S.of(context).departure, value: "16, Jan 2023"),
                     TripDetailItem(title: S.of(context).Distance, value: "35km"),
                     TripDetailItem(title: S.of(context).NoOfTickets, value: "5"),
-                    TripDetailItem(title: S.of(context).price, value: "150 LE"),
+                    TripDetailItem(title: S.of(context).Price, value: "150 LE"),
                   ],
                 ),
               ],

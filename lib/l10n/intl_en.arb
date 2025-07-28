@@ -61,12 +61,14 @@
     "pleaseeneterTicketCount": "Please enter ticket count",
     "alQalyubia": "Al Qalyubia",
     "giza": "Giza",
+    
     "cairo": "Cairo",
     "pleaseeneterReserveDate": "Please enter reserve date",
     "fromLabel": "From",
     "maadiLocation": "Maadi",
     "toLabel": "To",
     "gesrElSuezLocation": "Gesr El Suez",
+    "reservationSuccess": "Reservation Success",
     "ticketCount": "Ticket Count",
     "ticketCountExample": "example : 1",
     "reserveDate": "Reserve date",
@@ -85,6 +87,14 @@
     "TicketPrice": "Ticket Price",
     "TicketNo" : "Ticket",
     "NoOfTickets" : "No. Ticket",
-    "price" : "Price",
-    "TicketReservation" : "Ticket Reservation"
-}
+    "TicketReservation" : "Ticket Reservation",
+    "TicketColor" : "Ticket Color",
+    "stationsCounts" : "Stations Count",
+    "ticketDate" : "Ticket Date",
+    "Price" : "Price",
+    "TicketsCount" : "Tickets Count",
+    "reserveTicket" : "Reserve Ticket",
+    "choose": "Choose",
+    "LE" : "LE"
+
+  }

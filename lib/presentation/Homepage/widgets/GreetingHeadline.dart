@@ -1,5 +1,7 @@
+import 'package:demo/Cubits/LanguageCubit/LanguageCubit.dart';
 import 'package:demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Greetingheadline extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -18,6 +20,9 @@ class Greetingheadline extends StatelessWidget {
                         
                       ],
                     ),
+                    
+
+
                   ],
                 );
   }

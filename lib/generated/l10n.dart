@@ -630,6 +630,16 @@ class S {
     );
   }
 
+  /// `Reservation Success`
+  String get reservationSuccess {
+    return Intl.message(
+      'Reservation Success',
+      name: 'reservationSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ticket Count`
   String get ticketCount {
     return Intl.message(
@@ -770,11 +780,6 @@ class S {
     return Intl.message('No. Ticket', name: 'NoOfTickets', desc: '', args: []);
   }
 
-  /// `Price`
-  String get price {
-    return Intl.message('Price', name: 'price', desc: '', args: []);
-  }
-
   /// `Ticket Reservation`
   String get TicketReservation {
     return Intl.message(
@@ -783,6 +788,66 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Ticket Color`
+  String get TicketColor {
+    return Intl.message(
+      'Ticket Color',
+      name: 'TicketColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stations Count`
+  String get stationsCounts {
+    return Intl.message(
+      'Stations Count',
+      name: 'stationsCounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket Date`
+  String get ticketDate {
+    return Intl.message('Ticket Date', name: 'ticketDate', desc: '', args: []);
+  }
+
+  /// `Price`
+  String get Price {
+    return Intl.message('Price', name: 'Price', desc: '', args: []);
+  }
+
+  /// `Tickets Count`
+  String get TicketsCount {
+    return Intl.message(
+      'Tickets Count',
+      name: 'TicketsCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reserve Ticket`
+  String get reserveTicket {
+    return Intl.message(
+      'Reserve Ticket',
+      name: 'reserveTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose`
+  String get choose {
+    return Intl.message('Choose', name: 'choose', desc: '', args: []);
+  }
+
+  /// `LE`
+  String get LE {
+    return Intl.message('LE', name: 'LE', desc: '', args: []);
   }
 }
 

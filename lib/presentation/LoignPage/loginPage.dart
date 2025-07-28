@@ -3,7 +3,7 @@ import 'package:demo/generated/l10n.dart';
 import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
 import 'package:demo/widgets/AskSignbutton.dart';
-import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
+import 'package:demo/widgets/Languagebutton.dart';
 import 'package:demo/presentation/LoignPage/widgets/WelcomeText.dart';
 import 'package:demo/presentation/LoignPage/widgets/rememberForgetRow.dart';
 import 'package:demo/widgets/CustomButton.dart';
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Languagebutton(),
+                                    LanguageButton(),
                                     const Spacer(),
                                     const WelcomeText(),
                                     const SizedBox(height: 24),

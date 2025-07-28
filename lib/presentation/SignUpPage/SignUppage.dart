@@ -1,6 +1,6 @@
 import 'package:demo/Cubits/SignUp/cubit/sign_up_cubit.dart';
 import 'package:demo/generated/l10n.dart';
-import 'package:demo/presentation/LoignPage/widgets/Languagebutton.dart';
+import 'package:demo/widgets/Languagebutton.dart';
 import 'package:demo/presentation/SignUpPage/widgets/CustomFormBuilder.dart';
 import 'package:demo/presentation/SignUpPage/widgets/welcomeHeadline.dart';
 import 'package:demo/presentation/SuccessPage/SuccessPage.dart';
@@ -80,7 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Languagebutton(),
+                                    LanguageButton(),
                                     SizedBox(height: mediaHeight * 0.1),
 
                                     const Spacer(),

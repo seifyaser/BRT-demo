@@ -31,7 +31,7 @@ class LocationSelectorColumn extends StatelessWidget {
           items: _buildLocationItems(),
           hint: Center(
             child: Text(
-              'From',
+              S.of(context).fromLabel,
               style: const TextStyle(color: Color(0xffa4a4a4), fontSize: 20),
             ),
           ),
@@ -62,7 +62,7 @@ class LocationSelectorColumn extends StatelessWidget {
           items: _buildLocationItems(),
           hint: Center(
             child: Text(
-              'To',
+              S.of(context).toLabel,
               style: const TextStyle(color: Color(0xffa4a4a4), fontSize: 20),
             ),
           ),

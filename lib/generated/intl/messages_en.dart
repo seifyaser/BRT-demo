@@ -23,8 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Distance": MessageLookupByLibrary.simpleMessage("Distance"),
+    "LE": MessageLookupByLibrary.simpleMessage("LE"),
     "MyTrips": MessageLookupByLibrary.simpleMessage("My Trips"),
     "NoOfTickets": MessageLookupByLibrary.simpleMessage("No. Ticket"),
+    "Price": MessageLookupByLibrary.simpleMessage("Price"),
     "SelectLocationerror": MessageLookupByLibrary.simpleMessage(
       "select a location",
     ),
@@ -41,16 +43,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "SuccessAcountSignupDescriptionText": MessageLookupByLibrary.simpleMessage(
       "Welcome! Your account has been successfully registered, and you can now browse the latest offers and products.",
     ),
+    "TicketColor": MessageLookupByLibrary.simpleMessage("Ticket Color"),
     "TicketNo": MessageLookupByLibrary.simpleMessage("Ticket"),
     "TicketPrice": MessageLookupByLibrary.simpleMessage("Ticket Price"),
     "TicketReservation": MessageLookupByLibrary.simpleMessage(
       "Ticket Reservation",
     ),
+    "TicketsCount": MessageLookupByLibrary.simpleMessage("Tickets Count"),
     "ViewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
     "alQalyubia": MessageLookupByLibrary.simpleMessage("Al Qalyubia"),
     "arrival": MessageLookupByLibrary.simpleMessage("Arrival"),
     "availableLines": MessageLookupByLibrary.simpleMessage("Available lines"),
     "cairo": MessageLookupByLibrary.simpleMessage("Cairo"),
+    "choose": MessageLookupByLibrary.simpleMessage("Choose"),
     "confirmPasswordLabel": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
@@ -163,17 +168,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseeneterTicketCount": MessageLookupByLibrary.simpleMessage(
       "Please enter ticket count",
     ),
-    "price": MessageLookupByLibrary.simpleMessage("Price"),
     "priceValue": MessageLookupByLibrary.simpleMessage("150 EGP"),
     "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
+    "reservationSuccess": MessageLookupByLibrary.simpleMessage(
+      "Reservation Success",
+    ),
     "reserveDate": MessageLookupByLibrary.simpleMessage("Reserve date"),
     "reserveDateExample": MessageLookupByLibrary.simpleMessage(
       "example : 16, Jan 2023",
     ),
+    "reserveTicket": MessageLookupByLibrary.simpleMessage("Reserve Ticket"),
     "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
+    "stationsCounts": MessageLookupByLibrary.simpleMessage("Stations Count"),
     "ticketCount": MessageLookupByLibrary.simpleMessage("Ticket Count"),
     "ticketCountExample": MessageLookupByLibrary.simpleMessage("example : 1"),
+    "ticketDate": MessageLookupByLibrary.simpleMessage("Ticket Date"),
     "toLabel": MessageLookupByLibrary.simpleMessage("To"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back!"),
     "whereAreYouGoingToday": MessageLookupByLibrary.simpleMessage(
